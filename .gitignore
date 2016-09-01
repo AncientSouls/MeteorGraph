@@ -36,3 +36,15 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# default meteor build and local packages
+.meteor/local
+
+# meteor settings file
+settings.json
+
+# meteor build output files
+*.tar.gz
+
+# general swp files from vim
+*.swp
