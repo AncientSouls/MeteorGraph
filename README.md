@@ -2,6 +2,12 @@
 
 Graph class adapted for Meteor Minimongo database.
 
+## Install
+
+```bash
+meteor add ancient:graph
+```
+
 ## License
 
 The MIT License (MIT)
