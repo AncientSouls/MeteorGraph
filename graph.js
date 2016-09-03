@@ -5,6 +5,7 @@ import { Graph as AncientGraph } from 'ancient-graph';
  * Adapted for Meteor Minimongo.
  * 
  * @class
+ * @description `import { Graph } from 'meteor/ancient-graph';`
  */
 export class Graph extends AncientGraph {
   

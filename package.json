@@ -1,5 +1,28 @@
 {
   "name": "ancient-meteor-graph",
-  "version": "0.0.1",
-  "private": true
+  "version": "0.0.2",
+  "description": "Graph class adapted for Meteor Minimongo database.",
+  "private": true,
+  "author": "Ivan S Glazunov <ivansglazunov@gmail.com>",
+  "contributors": [
+    {
+      "name": "Ivan S Glazunov",
+      "email": "ivansglazunov@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "directories": {
+    "doc": "doc"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "source-map-support": "^0.4.2",
+    "minami": "^1.1.1",
+    "jsdoc": "^3.4.0"
+  },
+  "scripts": {
+    "jsdoc": "npm i && rm -rf ./doc/*/ && find ./doc ! -name '.git' -type f -exec rm -rf {} + && ./node_modules/.bin/jsdoc ./graph.js ./README.md -r -d ./doc -t ./node_modules/minami",
+    "gh-pages": "npm run jsdoc && cd ./doc && git push"
+  }
 }
