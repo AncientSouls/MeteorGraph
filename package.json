@@ -22,7 +22,7 @@
     "jsdoc": "^3.4.0"
   },
   "scripts": {
-    "jsdoc": "npm i && rm -rf ./doc/*/ && find ./doc ! -name '.git' -type f -exec rm -rf {} + && jsdoc ./graph.js ./README.md -r -d ./doc -t ./node_modules/minami",
+    "jsdoc": "git submodule update --init --recursive && cd ./doc && git checkout gh-pages && cd ../ && npm i && rm -rf ./doc/*/ && find ./doc ! -name '.git' -type f -exec rm -rf {} + && jsdoc ./graph.js ./README.md -r -d ./doc -t ./node_modules/minami",
     "gh-pages": "npm run jsdoc && cd ./doc && git push"
   }
 }
