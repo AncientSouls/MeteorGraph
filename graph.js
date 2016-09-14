@@ -89,9 +89,9 @@ export class Graph extends AncientGraph {
                 if (key == 'remove') {
                   if (!_modifier.$pull) _modifier.$pull = {};
                   if (typeof(modifier[m][key]) == 'object') {
-                    _modifier.$pull[this.fields[m]] = { $each: modifier[m][key] };
+                    _modifier.$pull[this.fields[m]] = { $in: modifier[m][key] };
                   } else {
-                    _modifier.$pull[this.fields[m]] = { $each: [modifier[m][key]] };
+                    _modifier.$pull[this.fields[m]] = { $in: [modifier[m][key]] };
                   }
                 }
               }
