@@ -15,9 +15,6 @@
     "doc": "doc"
   },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-preset-es2015": "^6.14.0",
-    "source-map-support": "^0.4.2",
     "minami": "^1.1.1",
     "jsdoc": "^3.4.0"
   },
