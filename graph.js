@@ -11,7 +11,7 @@ export class Graph extends AncientGraph {
   
   /**
    * Construct new graph and checks for required adaptation methods.
-   * @param {Array[]} collection
+   * @param {Mongo.Collection} collection
    * @param {Object.<string, string>} fields - matching of fields in the link with fields in document
    * @throws {Error} if the adapter methods is not complete
    */
