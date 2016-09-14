@@ -11,16 +11,12 @@ export class Graph extends AncientGraph {
   
   /**
    * Construct new graph and checks for required adaptation methods.
-   * @param {Mongo.Collection} collection
-   * @param {Object} fields - matching of fields in the link with fields in document
-   * @param {*} object.source
-   * @param {*} object.target
+   * @param {Array[]} collection
+   * @param {Object.<string, string>} fields - matching of fields in the link with fields in document
    * @throws {Error} if the adapter methods is not complete
    */
-  constructor(collection, fields) {
-    super();
-    this.collection = collection;
-    this.fields = fields;
+  constructor(collection, fields, config) {
+    super(...arguments);
   }
   
   /**
@@ -68,8 +64,42 @@ export class Graph extends AncientGraph {
           if (!_modifier.$unset) _modifier.$unset = {};
           _modifier.$unset[this.fields[m]] = '';
         } else {
-          if (!_modifier.$set) _modifier.$set = {};
-          _modifier.$set[this.fields[m]] = modifier[m];
+          if (typeof(modifier[m]) == 'object') {
+            if (Object.prototype.toString.call(modifier[m]) === '[object Array]') {
+              if (!_modifier.$set) _modifier.$set = {};
+              _modifier.$set[this.fields[m]] = modifier[m];
+            } else {
+              for (var key in modifier[m]) {
+                if (key == 'add') {
+                  if (!_modifier.$addToSet) _modifier.$addToSet = {};
+                  if (typeof(modifier[m][key]) == 'object') {
+                    _modifier.$addToSet[this.fields[m]] = { $each: modifier[m][key] };
+                  } else {
+                    _modifier.$addToSet[this.fields[m]] = { $each: [modifier[m][key]] };
+                  }
+                }
+                if (key == 'push') {
+                  if (!_modifier.$push) _modifier.$push = {};
+                  if (typeof(modifier[m][key]) == 'object') {
+                    _modifier.$push[this.fields[m]] = { $each: modifier[m][key] };
+                  } else {
+                    _modifier.$push[this.fields[m]] = { $each: [modifier[m][key]] };
+                  }
+                }
+                if (key == 'remove') {
+                  if (!_modifier.$pull) _modifier.$pull = {};
+                  if (typeof(modifier[m][key]) == 'object') {
+                    _modifier.$pull[this.fields[m]] = { $each: modifier[m][key] };
+                  } else {
+                    _modifier.$pull[this.fields[m]] = { $each: [modifier[m][key]] };
+                  }
+                }
+              }
+            }
+          } else {
+            if (!_modifier.$set) _modifier.$set = {};
+            _modifier.$set[this.fields[m]] = modifier[m];
+          }
         }
       }
     }
@@ -120,7 +150,11 @@ export class Graph extends AncientGraph {
           if (typeof(selector[m]) == 'undefined') {
             _selector[this.fields[m]] = { $exists: false };
           } else {
-            _selector[this.fields[m]] = selector[m];
+            if (Object.prototype.toString.call(selector[m]) === '[object Array]') {
+              _selector[this.fields[m]] = { $in: selector[m] };
+            } else {
+              _selector[this.fields[m]] = selector[m];
+            }
           }
         }
       }
@@ -170,6 +204,30 @@ export class Graph extends AncientGraph {
     }
     return link;
   }
+  
+  /**
+   * Get one first matching link.
+   * 
+   * @param {string|LinkSelector} selector
+   * @param {SelectOptions} [options]
+   * @param {Graph~getCallback} [callback]
+   * @return {Link} link - result link object
+   */
+  get(selector, options, callback) {
+    var _selector = this.query(selector);
+    var _options = this.options(options);
+    var result = this.collection.findOne(_selector, _options);
+    if (callback) callback(undefined, this._generateLink(result));
+    return result;
+  }
+  
+  /**
+   * Optional callback. If present, called with an error object as the first argument and, if no error, the result link object.
+   *
+   * @callback Graph~getCallback
+   * @param {Error} [error]
+   * @param {Link} [link]
+   */
   
   /**
    * Fetch native database documents.
@@ -246,6 +304,26 @@ export class Graph extends AncientGraph {
    * @callback Graph~mapCallback
    * @param {Link} [link]
    * @return {*} result
+   */
+  
+  /**
+   * Count all matching documents.
+   * 
+   * @param {string|LinkSelector} selector
+   * @param {SelectOptions} [options]
+   * @param {Graph~countCallback} [callback]
+   * @return {number} [count]
+   */
+  count(selector, options, callback) {
+    var count = this._find(selector, options).count();
+    if (callback) callback(undefined, count);
+    return count;
+  }
+  
+  /**
+   * @callback Graph~countCallback
+   * @param {Error} [error]
+   * @param {number} [count]
    */
   
   /**

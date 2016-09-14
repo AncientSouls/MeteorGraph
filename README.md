@@ -10,7 +10,7 @@ meteor add ancient:graph
 
 ## Tests
 
-Tests can be started with comand `npm install ancient-graph && npm install && meteor test-packages ./ -p $IP:$PORT --driver-package practicalmeteor:mocha`. For more information lern [src/tests/index.js](https://github.com/AncientSouls/MeteorGraph/blob/master/graph.test.js).
+Tests can be started with comand `npm install && meteor test-packages ./ -p $IP:$PORT --driver-package practicalmeteor:mocha`. For more information lern [src/tests/index.js](https://github.com/AncientSouls/MeteorGraph/blob/master/graph.test.js).
 
 ## License
 
