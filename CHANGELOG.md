@@ -1,4 +1,4 @@
-#### 0.0.3 (2016-9-14)
+#### 0.0.4 (2016-9-14)
 
 ##### Documentation Changes
 
@@ -10,6 +10,7 @@
 
 ##### Bug Fixes
 
+* **mongo:**  work with (0eefdf69)
 * **readme:** add tests section (cb4b5c15)
 * **scripts:**
   * Remove gh-pages from scripts. (4c504eed)
