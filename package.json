@@ -1,6 +1,6 @@
 {
   "name": "ancient-meteor-graph",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Graph class adapted for Meteor Minimongo database.",
   "private": true,
   "author": "Ivan S Glazunov <ivansglazunov@gmail.com>",

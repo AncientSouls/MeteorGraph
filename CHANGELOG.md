@@ -1,4 +1,4 @@
-#### 0.0.4 (2016-9-14)
+#### 0.0.5 (2016-9-15)
 
 ##### Documentation Changes
 
@@ -16,3 +16,12 @@
   * Remove gh-pages from scripts. (4c504eed)
   * submodule branch checkout (4566afd9)
   * from path to bin names (38fe9c2c)
+
+##### Other Changes
+
+* **jsdoc:** Mongo.Collection as collection (3c007ca5)
+
+##### Refactors
+
+* **factory:** Add class factory. (14513509)
+
