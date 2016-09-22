@@ -36,7 +36,6 @@ function factoryMeteorGraph(ParentClassGraph) {
      * @return {string} [id]
      */
     insert(link, callback) {
-      this.callback
       var _modifier = {};
       for (var f in link) {
         if (this.fields[f]) {
