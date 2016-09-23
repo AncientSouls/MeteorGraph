@@ -14,9 +14,6 @@
   "directories": {
     "doc": "doc"
   },
-  "dependencies": {
-    "ancient-graph": "^0.0.29"
-  },
   "devDependencies": {
     "minami": "^1.1.1",
     "jsdoc": "^3.4.0"

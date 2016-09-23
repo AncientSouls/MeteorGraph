@@ -95,11 +95,11 @@ function factoryMeteorGraph(ParentClassGraph) {
                     }
                   }
                   if (key == 'remove') {
-                    if (!_modifier.$pull) _modifier.$pull = {};
+                    if (!_modifier.$pull) _modifier.$pullAll = {};
                     if (typeof(modifier[m][key]) == 'object') {
-                      _modifier.$pull[this.fields[m]] = { $in: modifier[m][key] };
+                      _modifier.$pullAll[this.fields[m]] = modifier[m][key];
                     } else {
-                      _modifier.$pull[this.fields[m]] = { $in: [modifier[m][key]] };
+                      _modifier.$pullAll[this.fields[m]] = [modifier[m][key]];
                     }
                   }
                 }
@@ -111,7 +111,7 @@ function factoryMeteorGraph(ParentClassGraph) {
           }
         }
       }
-      this.collection.update(_selector, _modifier, callback);
+      this.collection.update(_selector, _modifier, { multi: true }, callback);
     }
     
     /**
