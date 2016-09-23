@@ -1,7 +1,8 @@
-#### 0.0.5 (2016-9-15)
+#### 0.0.6 (2016-9-23)
 
 ##### Documentation Changes
 
+* **jsdoc:** Add config to constructor (b69596e4)
 * **readme:** Install. (601ca99f)
 
 ##### New Features
@@ -10,7 +11,10 @@
 
 ##### Bug Fixes
 
-* **mongo:**  work with (0eefdf69)
+* **mongo:**
+  * update syntax (4a828db3)
+  *  work with (0eefdf69)
+* **graph:** cleaning (5e1e2ddd)
 * **readme:** add tests section (cb4b5c15)
 * **scripts:**
   * Remove gh-pages from scripts. (4c504eed)
