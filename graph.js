@@ -225,7 +225,7 @@ function factoryMeteorGraph(ParentClassGraph) {
       var _selector = this.query(selector);
       var _options = this.options(options);
       var result = this.collection.findOne(_selector, _options);
-      if (callback) callback(undefined, this._generateLink(result));
+      if (callback) callback(undefined, result?this._generateLink(result):undefined);
       return result;
     }
     
