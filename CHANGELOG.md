@@ -1,4 +1,4 @@
-#### 0.0.6 (2016-9-23)
+#### 0.0.8 (2016-9-26)
 
 ##### Documentation Changes
 
@@ -11,6 +11,7 @@
 
 ##### Bug Fixes
 
+* **events:** Only if fields is changed (0a6f8765)
 * **mongo:**
   * update syntax (4a828db3)
   *  work with (0eefdf69)
