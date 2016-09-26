@@ -95,7 +95,7 @@ function factoryMeteorGraph(ParentClassGraph) {
                     }
                   }
                   if (key == 'remove') {
-                    if (!_modifier.$pull) _modifier.$pullAll = {};
+                    if (!_modifier.$pullAll) _modifier.$pullAll = {};
                     if (typeof(modifier[m][key]) == 'object') {
                       _modifier.$pullAll[this.fields[m]] = modifier[m][key];
                     } else {
