@@ -350,7 +350,16 @@ function factoryMeteorGraph(ParentClassGraph) {
       }
       if (event == 'update') {
         this.collection.after.update(function(userId, doc, fieldNames, modifier, options) {
-          callback(graph._generateLink(this.previous), graph._generateLink(doc), { userId: userId });
+          var hasFields = false;
+          for (var f in graph.fields) {
+            if (includes(fieldNames, graph.fields[f])) {
+              hasFields = true;
+              break;
+            }
+          }
+          if (hasFields) {
+            callback(graph._generateLink(this.previous), graph._generateLink(doc), { userId: userId });
+          }
         });
       }
       if (event == 'remove') {
@@ -359,20 +368,12 @@ function factoryMeteorGraph(ParentClassGraph) {
         });
       }
       if (event == 'link') {
-        this.collection.after.insert(function(userId, document) {
-          callback(undefined, graph._generateLink(document), { userId: userId });
-        });
-        this.collection.after.update(function(userId, doc, fieldNames, modifier, options) {
-          callback(graph._generateLink(this.previous), graph._generateLink(doc), { userId: userId });
-        });
+        this.on('insert', callback);
+        this.on('update', callback);
       }
       if (event == 'unlink') {
-        this.collection.after.update(function(userId, doc, fieldNames, modifier, options) {
-          callback(graph._generateLink(this.previous), graph._generateLink(doc), { userId: userId });
-        });
-        this.collection.after.remove(function(userId, document) {
-          callback(graph._generateLink(document), undefined, { userId: userId });
-        });
+        this.on('update', callback);
+        this.on('remove', callback);
       }
     }
     
@@ -385,6 +386,16 @@ function factoryMeteorGraph(ParentClassGraph) {
   };
   
   return MeteorGraph;
+}
+
+function includes(a, obj) {
+    var i = a.length;
+    while (i--) {
+       if (a[i] === obj) {
+           return true;
+       }
+    }
+    return false;
 }
 
 var MeteorGraph = factoryMeteorGraph(AncientGraph);
