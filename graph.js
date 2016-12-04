@@ -39,8 +39,8 @@ function factoryMeteorGraph(ParentClassGraph) {
     insert(link, callback) {
       var _modifier = {};
       for (var f in link) {
-        if (this.fields[f]) {
-          _modifier[this.fields[f]] = link[this.config.aliases[f]];
+        if (this.fields[this.config._aliases[f]]) {
+          _modifier[this.fields[this.config._aliases[f]]] = link[f];
         }
       }
       return this.collection.insert(_modifier, callback);
@@ -67,46 +67,46 @@ function factoryMeteorGraph(ParentClassGraph) {
       var _selector = this.query(selector);
       var _modifier = {};
       for (var m in modifier) {
-        if (this.fields[m]) {
+        if (this.fields[this.config._aliases[m]]) {
           if (typeof(modifier[m]) == 'undefined') {
             if (!_modifier.$unset) _modifier.$unset = {};
-            _modifier.$unset[this.fields[m]] = '';
+            _modifier.$unset[this.fields[this.config._aliases[m]]] = '';
           } else {
             if (typeof(modifier[m]) == 'object') {
               if (Object.prototype.toString.call(modifier[m]) === '[object Array]') {
                 if (!_modifier.$set) _modifier.$set = {};
-                _modifier.$set[this.fields[m]] = modifier[m];
+                _modifier.$set[this.fields[this.config._aliases[m]]] = modifier[m];
               } else {
                 for (var key in modifier[m]) {
                   if (key == 'add') {
                     if (!_modifier.$addToSet) _modifier.$addToSet = {};
                     if (typeof(modifier[m][key]) == 'object') {
-                      _modifier.$addToSet[this.fields[m]] = { $each: modifier[m][key] };
+                      _modifier.$addToSet[this.fields[this.config._aliases[m]]] = { $each: modifier[m][key] };
                     } else {
-                      _modifier.$addToSet[this.fields[m]] = { $each: [modifier[m][key]] };
+                      _modifier.$addToSet[this.fields[this.config._aliases[m]]] = { $each: [modifier[m][key]] };
                     }
                   }
                   if (key == 'push') {
                     if (!_modifier.$push) _modifier.$push = {};
                     if (typeof(modifier[m][key]) == 'object') {
-                      _modifier.$push[this.fields[m]] = { $each: modifier[m][key] };
+                      _modifier.$push[this.fields[this.config._aliases[m]]] = { $each: modifier[m][key] };
                     } else {
-                      _modifier.$push[this.fields[m]] = { $each: [modifier[m][key]] };
+                      _modifier.$push[this.fields[this.config._aliases[m]]] = { $each: [modifier[m][key]] };
                     }
                   }
                   if (key == 'remove') {
                     if (!_modifier.$pullAll) _modifier.$pullAll = {};
                     if (typeof(modifier[m][key]) == 'object') {
-                      _modifier.$pullAll[this.fields[m]] = modifier[m][key];
+                      _modifier.$pullAll[this.fields[this.config._aliases[m]]] = modifier[m][key];
                     } else {
-                      _modifier.$pullAll[this.fields[m]] = [modifier[m][key]];
+                      _modifier.$pullAll[this.fields[this.config._aliases[m]]] = [modifier[m][key]];
                     }
                   }
                 }
               }
             } else {
               if (!_modifier.$set) _modifier.$set = {};
-              _modifier.$set[this.fields[m]] = modifier[m];
+              _modifier.$set[this.fields[this.config._aliases[m]]] = modifier[m];
             }
           }
         }
