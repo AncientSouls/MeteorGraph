@@ -1,6 +1,6 @@
 Package.describe({
   name: 'ancient:graph',
-  version: '0.0.8',
+  version: '0.0.9',
   summary: 'Graph class adapted for Meteor Minimongo database.',
   git: 'https://github.com/AncientSouls/MeteorGraph',
   documentation: 'README.md'

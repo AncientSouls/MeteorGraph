@@ -40,7 +40,7 @@ function factoryMeteorGraph(ParentClassGraph) {
       var _modifier = {};
       for (var f in link) {
         if (this.fields[f]) {
-          _modifier[this.fields[f]] = link[f];
+          _modifier[this.fields[f]] = link[this.config.aliases[f]];
         }
       }
       return this.collection.insert(_modifier, callback);
@@ -150,7 +150,7 @@ function factoryMeteorGraph(ParentClassGraph) {
     query(selector) {
       var type = typeof(selector);
       if (type == 'string' || type == 'number') {
-        return { [this.fields['id']]: selector };
+        return { [this.fields[this.config.aliases['id']]]: selector };
       } else if (type == 'object') {
         var _selector = {};
         for (var m in selector) {
@@ -207,7 +207,7 @@ function factoryMeteorGraph(ParentClassGraph) {
       var link = {};
       for (var f in this.fields) {
         if (document.hasOwnProperty(this.fields[f])) {
-          link[f] = document[this.fields[f]];
+          link[this.config.aliases[f]] = document[this.fields[f]];
         }
       }
       return link;
