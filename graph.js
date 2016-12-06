@@ -154,14 +154,14 @@ function factoryMeteorGraph(ParentClassGraph) {
       } else if (type == 'object') {
         var _selector = {};
         for (var m in selector) {
-          if (this.fields[m]) {
+          if (this.fields[this.config._aliases[m]]) {
             if (typeof(selector[m]) == 'undefined') {
-              _selector[this.fields[m]] = { $exists: false };
+              _selector[this.fields[this.config._aliases[m]]] = { $exists: false };
             } else {
               if (Object.prototype.toString.call(selector[m]) === '[object Array]') {
-                _selector[this.fields[m]] = { $in: selector[m] };
+                _selector[this.fields[this.config._aliases[m]]] = { $in: selector[m] };
               } else {
-                _selector[this.fields[m]] = selector[m];
+                _selector[this.fields[this.config._aliases[m]]] = selector[m];
               }
             }
           }
@@ -182,8 +182,8 @@ function factoryMeteorGraph(ParentClassGraph) {
         if (options.sort) {
           _options.sort = options.sort;
           for (var s in _options.sort) {
-            if (this.fields[s]) {
-              _options.sort[this.fields[s]] = options.sort[s]?1:-1;
+            if (this.fields[this.config._aliases[s]]) {
+              _options.sort[this.fields[this.config._aliases[s]]] = options.sort[s]?1:-1;
             }
           }
         }
